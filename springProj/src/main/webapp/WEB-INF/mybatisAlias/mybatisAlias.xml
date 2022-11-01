@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  <configuration>
+  	<!-- 
+  		스프링에서 언더바를 사용한 컬럼명 사용 시 (BOOK 테이블의 BOOK_ID , INSERT_DATE 같은애들)
+  		얘들을 카멜케이스로 읽어줌(bookId,insertdate)
+  		ex) 테이블 컬럼명의 member_id 인 경우 jsp 화면단에서 이 값을 사용 시
+  					  memberId로 사용 가능
+  	
+  	 -->
+  	<settings>
+  		<setting name="mapUnderscoreToCamelCase" value="true"/>
+  	</settings>
+  	<!-- 자주 사용하는 타입의 별칭을 세팅 -->
+  	<typeAliases>
+  		<typeAlias type="kr.or.ddit.vo.BookVO" alias="bookVO"/>
+  		<typeAlias type="kr.or.ddit.vo.AttachVO" alias="attachVO"/>
+  		<typeAlias type="kr.or.ddit.vo.AddressVO" alias="addressVO"/>
+  		<typeAlias type="kr.or.ddit.vo.CardVO" alias="cardVO"/>
+  		<typeAlias type="kr.or.ddit.vo.MemberVO" alias="memberVO"/>
+  		<typeAlias type="kr.or.ddit.vo.Member1VO" alias="memberVO1"/>
+  	</typeAliases>
+  </configuration>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace : xml 파일은 여러개일 수 있으므로 
+	 이를 구별하기 위한 식별 용도로 사용
+	 외부에서 접근시 namespace로 접근 가능
+-->
+<mapper namespace="book">
+	<!-- MyBatis에서 제공해주는 데이터 입력을 나타내는 태그
+		1) 들어오는 것 : Dao 객체가 던진 데이터 타입(String , int , hashMap , VO , List 등등
+		 parameterType 만 사용합니다.
+		 
+		2) 가자 : Dao 객체의 메소드 쪽으로 리턴할 타입
+				-resultType : String, int, VO, hashMap
+				-resultMap : MyBatis의 resultMap 태그를 사용
+				
+		3) insert , update , delete 태그의 resultType은 생략 => 0또는 반영된 개수를 리턴
+		
+	 -->
+	<!-- BOOK 테이블에 insert -->
+	<insert id="insert" parameterType="kr.or.ddit.vo.BookVO">
+		<selectKey order="BEFORE" resultType="integer" keyProperty="bookId">
+			SELECT NVL(MAX(BOOK_ID),0)+1 FROM BOOK
+		</selectKey>
+		
+		INSERT INTO BOOK(BOOK_ID, TITLE, CATEGORY, PRICE, INSERT_DATE) 
+			VALUES(${bookId},#{title},#{category},#{price},SYSDATE)	
+	</insert>
+	
+	<!-- 책 상세보기 
+		select 태그는 조회(slect) 쿼리를 실행하기 위한 mybatis 태그
+		parameterType(book_SQL.xml로 들어옴) : BookVO 타입
+		resultType(bookDAO로 나감) : bookVO 타입으로 나감
+	-->
+	<!-- bookVO 들어옴 -> {"bookId":"1","title":"","category":"","price":0,"insertDate":"" -->
+	<!-- bookVO 들어옴 -> {"bookId":"1","title":"","category":"","price":0,"insertDate":"" -->
+	
+	<select id="select_detail" parameterType="bookVO" resultType="bookVO">
+		SELECT BOOK_ID, TITLE, CATEGORY, PRICE, INSERT_DATE
+		FROM BOOK
+		WHERE BOOK_ID = #{bookId}
+	</select>
+	
+	<!-- 
+		where 1=1 은 항상 참
+		조건이 2개 이상일 때 WHERE + AND 
+		조건이 1개 일 때 WHERER이어야 함
+		WHERE(생략)
+		AND => 오류 발생
+		==>
+		WHERE 1=1
+		AND (생략)
+		AND => 정상
+	 -->
+	<select id="list" parameterType="string" resultType="bookVO">
+		SELECT BOOK_ID, TITLE, CATEGORY,  PRICE, INSERT_DATE
+			FROM BOOK
+			WHERE 1 = 1  
+			<if test="keyword!=null and keyword!=''">
+			AND (TITLE LIKE '%' || #{keyWord} || '%' 
+			OR CATEGORY LIKE '%' || #{keyWord} || '%')
+			</if> 
+			ORDER BY INSERT_DATE DESC
+	</select>
+	
+	<update id="update" parameterType="bookVO">
+		UPDATE BOOK
+		SET TITLE=#{title} , CATEGORY=#{category} , PRICE=#{price}
+		WHERE BOOK_ID =  #{bookId}
+	</update>
+	<delete id="delete" parameterType="int">
+	
+		delete from book where BOOK_ID = #{bookId}
+		 </delete>
+
+</mapper>
