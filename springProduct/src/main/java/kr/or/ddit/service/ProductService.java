@@ -22,7 +22,12 @@ public interface ProductService {
 
 	// 상품 삭제
 	public int delete(String productId);
-
-	// CART 및 CART__DET 테이블에 insert
-	public int thankCustomer(CartVO cartvo);
+	
+	//CART 및 CART_DET 테이블에 insert
+	public int thankCustomer(CartVO cartVO);
 }
+
+
+
+
+

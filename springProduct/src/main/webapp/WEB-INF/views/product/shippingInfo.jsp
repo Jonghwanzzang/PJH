@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,20 +9,19 @@
 <title>배송 정보</title>
 <script type="text/javascript">
 $(function(){
-	   $("#btnZipCode").on("click",function(){
-	      new daum.Postcode({
-	         oncomplete:function(data){
-	            //zipCode
-	            $("input[name='zipCode']").val(data.zonecode);   //우편번호5자리
-	            //addressName
-	            $("input[name='addressName']").val(data.address);   //주소
-	            //addressDetail
-	            $("input[name='addressDetail']").val(data.buildingName);   //상세 주소
-	         }
-	      }).open();
-	   });
+	$("#btnZipCode").on("click",function(){
+		new daum.Postcode({
+			oncomplete:function(data){
+				//zipCode
+				$("input[name='zipCode']").val(data.zonecode);	//우편번호5자리
+				//addressName
+				$("input[name='addressName']").val(data.address);	//주소
+				//addressDetail
+				$("input[name='addressDetail']").val(data.buildingName);	//상세 주소
+			}
+		}).open();
 	});
-	</script>
+});
 </script>
 </head>
 <body>
@@ -40,7 +40,8 @@ $(function(){
 	<div class="container">
 		<form action="/processShippingInfo" class="form-horizontal"
 		method="post">
-			<input type="hidden" name="cartId" value="${cartId }" />
+			<input type="hidden" name="cartId" 
+			value="${cartId}" />
 			<div class="form-group row">
 				<label class="col-sm-2">성명</label>
 				<div class="col-sm-3">
@@ -66,9 +67,7 @@ $(function(){
 				<div class="col-sm-3">
 					<input type="text" name="zipCode" 
 					class="form-control" />
-					<button type="button" id="btnZipCode"
-						class="btn btn-info">우편번호 검색</button>
-					
+					<button type="button" id="btnZipCode" class="btn btn-info">우편번호검색</button>
 				</div>
 			</div>
 			<div class="form-group row">
@@ -87,7 +86,7 @@ $(function(){
 			</div>
 			<div class="form-group row">
 				<div class="col-sm-offset-2 col-sm-10">
-					<a href="/cart?cartId=<%=session.getAttribute("cartId")%>"
+					<a href="/cart?cartId=${cartId}"
 					class="btn btn-secondary" role="button">이전</a>
 					<input type="submit" class="btn btn-primary" value="등록" />
 					<a href="/checkOutCancelled"

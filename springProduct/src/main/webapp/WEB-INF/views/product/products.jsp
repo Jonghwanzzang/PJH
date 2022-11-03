@@ -22,11 +22,15 @@
 		<!-- container : 이 안에 내용있다 -->
 		<div class="container">
 			<h1 class="display-3">상품 목록</h1>
-		<form action="">
-			<input type="text" name="keyword" value="">
-			<input type="submit" value="검색">
-		</form>
 		</div>
+		<p>
+			<form>
+				<input type="text" placeholder="검색어를 입력하세요" name="keyword"
+				value="${param.keyword}" />
+				<input type="submit" value="검색" />
+			</form>
+		</p>
+		
 	</div>
 	<!-- container : 이 안에 내용있다 -->
 	<div class="container">

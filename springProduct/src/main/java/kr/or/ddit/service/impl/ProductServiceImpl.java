@@ -10,7 +10,6 @@ import kr.or.ddit.service.ProductService;
 import kr.or.ddit.util.FileUploadUtil;
 import kr.or.ddit.vo.CartVO;
 import kr.or.ddit.vo.ProductVO;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -24,11 +23,13 @@ public class ProductServiceImpl implements ProductService{
 	//PRODUCT 테이블에 insert
 	@Override
 	public int insertProduct(ProductVO productVO) {	
-		// 다중 인설트
+		//PRODUCT 테이블에 insert
 		int result = this.productDao.insertProduct(productVO);
-		log.info(" result 다 이 새끼야~ : " + result);
-		if(result >0) { // insert 성공 시
-			FileUploadUtil.fileUploadAction(productVO.getProductImage(), productVO.getProductId());
+		//ATTACH 테이블에 다중 insert
+		if(result > 0) {//insert 성공 시
+			//파일업로드 및 insert 수행
+			FileUploadUtil.fileUploadAction(productVO.getProductImage(), 
+					productVO.getProductId());
 		}
 		
 		return result;
@@ -57,17 +58,16 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.delete(productId);
 	}
 
+	//CART 및 CART_DET 테이블에 insert
 	@Override
-	public int thankCustomer(CartVO cartvo) {
-		// 1. CART 테이블에 isnert
-		int cartInCnt = this.productDao.insertCart(cartvo);
+	public int thankCustomer(CartVO cartVO) {
+		//1. CART 테이블에 insert
+		int cartInCnt = this.productDao.insertCart(cartVO);
 		log.info("cartInCnt : " + cartInCnt);
-		// 2. CART_DET 테이블에 insert 
 		
+		//2. CART_DET 테이블에 insert
 		
 		return 0;
-				//this.productDao.
-		
 	}
 }
 

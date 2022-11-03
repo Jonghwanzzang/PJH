@@ -288,12 +288,11 @@ public class ProductController {
 		return "/product/shippingInfo";
 	}
 	
-	// value="/processs"
 	//요청URI => /processShippingInfo
-	// 요청 파라미터 =>  배성정보들
-	@RequestMapping(value="/processShippingInfo" , method = RequestMethod.POST)
-	public String processShippingInfo(@ModelAttribute CartVO cartVO, 
-			 HttpServletResponse response, Model model) throws Exception {
+	//요청파라미터 => 배송정보들
+	@RequestMapping(value="/processShippingInfo",method=RequestMethod.POST)
+	public String processShippingInfo(@ModelAttribute CartVO cartVO,
+			HttpServletResponse response, Model model) throws Exception {
 		//쿠키 쿠키 뉴~ 큐키 네임 밸류
 		//요청 파라미터 정보를 쿠키에 넣음 
 		Cookie cartId = 
@@ -316,7 +315,7 @@ public class ProductController {
 				URLEncoder.encode(cartVO.getAddressName(),"UTF-8"));
 		Cookie addressDetail = 
 				new Cookie("Shipping_addressDetail",
-						URLEncoder.encode(cartVO.getAddressDetail() ,"UTF-8"));
+						URLEncoder.encode(cartVO.getAddressDetail(),"UTF-8"));
 		
 		//유효 기간 1일로 설정(초단위)
 		cartId.setMaxAge(24 * 60 * 60);
@@ -326,6 +325,7 @@ public class ProductController {
 		country.setMaxAge(24 * 60 * 60);
 		addressName.setMaxAge(24 * 60 * 60);
 		addressDetail.setMaxAge(24 * 60 * 60);
+		
 		//생성된 쿠키를 등록 
 		response.addCookie(cartId);
 		response.addCookie(name);
@@ -334,88 +334,103 @@ public class ProductController {
 		response.addCookie(country);
 		response.addCookie(addressName);
 		response.addCookie(addressDetail);
-		model.addAttribute("cartVO", cartVO);
 		
+		model.addAttribute("cartVO", cartVO);
 		
 		//forwarding
 		return "product/orderConfirmation";
 	}
 	
-	@RequestMapping(value="/thankCustomer" , method = RequestMethod.GET)
-	public String thankCustomer(HttpServletRequest request, CartVO cartvo) throws UnsupportedEncodingException {
+	//배송 후 마무리. 세션 종료. 쿠키 종료. 
+	//요청URI : /thankCustomer
+	@RequestMapping(value="/thankCustomer", method=RequestMethod.GET)
+	public String thankCustomer(HttpServletRequest request,
+			CartVO cartVO) throws Exception {
+		//1. 쿠키 정보를 가져와 CART 테이블로 insert
 		String Shipping_name = "";
 		String Shipping_zipCode = "";
 		String Shipping_country = "";
 		String Shipping_addressName = "";
+		String Shipping_addressDetail = "";
 		String Shipping_shippingDate = "";
 		String Shipping_cartId = "";
-		String Shipping_addressDetail = "";
+
 		Cookie[] cookies = request.getCookies();
+		
 		//쿠키의 개수만큼 반복
 		for(int i=0;i<cookies.length;i++){
 			Cookie thisCookie = cookies[i];
 			//쿠키 이름 가져옴
-	// 		out.print(thisCookie.getName() + "<br />");
+//	 		out.print(thisCookie.getName() + "<br />");
 			//쿠키 값 가져옴
-	// 		out.print(URLDecoder.decode(thisCookie.getValue(),"UTF-8")+"<br />");
+//	 		out.print(URLDecoder.decode(thisCookie.getValue(),"UTF-8")+"<br />");
 			if(thisCookie.getName().equals("Shipping_name")){
 				Shipping_name = URLDecoder.decode(thisCookie.getValue(),"UTF-8");
-				cartvo.setName(Shipping_name);
+				cartVO.setName(Shipping_name);
 			}
 			if(thisCookie.getName().equals("Shipping_zipCode")){
 				Shipping_zipCode = URLDecoder.decode(thisCookie.getValue(),"UTF-8");
-				cartvo.setZipCode(Shipping_zipCode);
+				cartVO.setZipCode(Shipping_zipCode);
 			}
 			if(thisCookie.getName().equals("Shipping_country")){
 				Shipping_country = URLDecoder.decode(thisCookie.getValue(),"UTF-8");
-				cartvo.setCountry(Shipping_country);
+				cartVO.setCountry(Shipping_country);
 			}
 			if(thisCookie.getName().equals("Shipping_addressName")){
 				Shipping_addressName = URLDecoder.decode(thisCookie.getValue(),"UTF-8");
-				cartvo.setAddressName(Shipping_addressName);
-			}
-			if(thisCookie.getName().equals("Shipping_shippingDate")){
-				Shipping_shippingDate = URLDecoder.decode(thisCookie.getValue(),"UTF-8");
-				cartvo.setShippingDate(Shipping_shippingDate);
-			}
-			if(thisCookie.getName().equals("Shipping_cartId")){
-				Shipping_cartId = URLDecoder.decode(thisCookie.getValue(),"UTF-8");
-				cartvo.setCartId(Shipping_cartId);
+				cartVO.setAddressName(Shipping_addressName);
 			}
 			if(thisCookie.getName().equals("Shipping_addressDetail")){
 				Shipping_addressDetail = URLDecoder.decode(thisCookie.getValue(),"UTF-8");
-				cartvo.setAddressDetail(Shipping_addressDetail);
+				cartVO.setAddressDetail(Shipping_addressDetail);
+			}
+			if(thisCookie.getName().equals("Shipping_shippingDate")){
+				Shipping_shippingDate = URLDecoder.decode(thisCookie.getValue(),"UTF-8");
+				cartVO.setShippingDate(Shipping_shippingDate);
+			}
+			if(thisCookie.getName().equals("Shipping_cartId")){
+				Shipping_cartId = URLDecoder.decode(thisCookie.getValue(),"UTF-8");
+				cartVO.setCartId(Shipping_cartId);
 			}
 		}
+		//cartVO : CartVO [cartId=1264E7065027CAF1C93F7D9D57DCE127, name=개똥이
+		//, shippingDate=2022-10-27, country=대한민국, zipCode=63309
+		//, addressName=제주특별자치도 제주시 영평동 2181, addressDetail=123, registDt=null]
+		log.info("cartVO : " + cartVO.toString());
 		
-		
-		// 세션 정보를 가져와 CART_DET 테이블로 다중 insert
+		//2. 세션 정보를 가져와 CART_DET 테이블로 다중 insert
 		HttpSession session = request.getSession();
-		ArrayList<ProductVO> list =
-				(ArrayList<ProductVO>)session.getAttribute("cartlist");
-
-		//3. CartVO : CartDetVO =  1  :N  의 관계
+		ArrayList<ProductVO> list 
+			= (ArrayList<ProductVO>)session.getAttribute("cartlist");
+		
+		//3. CartVO : CartDetVO = 1 : N
 		List<CartDetVO> cartDetVOList = new ArrayList<CartDetVO>();
 		for(ProductVO vo : list) {
 			CartDetVO cartDetVO = new CartDetVO();
-			cartDetVO.setCartId(cartvo.getCartId());
+			cartDetVO.setCartId(cartVO.getCartId());
 			cartDetVO.setProductId(vo.getProductId());
 			cartDetVO.setUnitPrice(vo.getUnitPrice());
 			cartDetVO.setQuantity(vo.getQuantity());
 			cartDetVO.setAmount(vo.getUnitPrice() * vo.getQuantity());
+			
 			cartDetVOList.add(cartDetVO);
 		}
-		cartvo.setCartDetVOList(cartDetVOList);
-
-		log.info("cartVO  : "  + cartvo.toString());
+		cartVO.setCartDetVOList(cartDetVOList);
 		
-		this.productService.thankCustomer(cartvo);
+		log.info("cartVO : " + cartVO.toString());
 		
+		this.productService.thankCustomer(cartVO);
+		
+		//forwarding
 		return "product/thankCustomer";
 	}
 	
-	@RequestMapping(value="/checkOutCancelled" , method = RequestMethod.GET)
+	//주문 취소
+	//요청URI : /checkOutCancelled
+	//목적 : 세션 종료
+	@RequestMapping(value="/checkOutCancelled", method=RequestMethod.GET)
 	public String checkOutCancelled() {
+		//forwarding
 		return "product/checkOutCancelled";
 	}
 }

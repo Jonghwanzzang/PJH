@@ -1,21 +1,19 @@
 package kr.or.ddit.vo;
 
-// 장바구니 상세 테이블 용 자바 빈 클래스
+//장바구니 상세 테이블 용 자바빈 클래스
 public class CartDetVO {
-	// 멤버 변수
+	//멤버변수
 	private String productId;
 	private String cartId;
 	private int unitPrice;
 	private int quantity;
 	private int amount;
 	private String etc;
-
 	
 	//기본 생성자
-	public CartDetVO() {
-		super();
-	}
+	public CartDetVO() {}
 
+	//getter/setter메소드
 	public String getProductId() {
 		return productId;
 	}

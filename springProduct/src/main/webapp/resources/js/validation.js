@@ -1,9 +1,8 @@
 function checkAddProduct() {
-	console.log("validation IN");
     let productId = document.getElementById("productId");
     let pname = document.getElementById("pname");
     let unitPrice = document.getElementById("unitPrice");
-    let unitsInStock = document.getElementById("unitsInStock");
+    let unitInStock = document.getElementById("unitInStock");
 	
 	console.log(unitPrice.value);
 	
@@ -36,7 +35,7 @@ function checkAddProduct() {
         return false;
     }
     // 재고 수 체크
-    if(isNaN(unitsInStock.value)){
+    if(isNaN(unitInStock.value)){
         alert("[재고 수]\n숫자만 입력해주세요");
         unitInStock.select();
         unitInStock.focus();

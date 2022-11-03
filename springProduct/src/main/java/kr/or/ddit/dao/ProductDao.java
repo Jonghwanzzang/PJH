@@ -9,9 +9,7 @@ import org.springframework.stereotype.Repository;
 import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.CartVO;
 import kr.or.ddit.vo.ProductVO;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Repository
 public class ProductDao {
 	//의존성 주입(Dependency Injection-DI)
@@ -50,15 +48,13 @@ public class ProductDao {
 		return this.sqlSessionTemplate.delete("product.delete", productId);
 	}
 	
-	// CART 테이블 insert
-	public int insertCart(CartVO cartvo) {
-		return this.sqlSessionTemplate.insert("product.insertcart" , cartvo);
-		
+	//CART 테이블에 insert
+	public int insertCart(CartVO cartVO) {
+		return this.sqlSessionTemplate.insert("product.insertCart",cartVO);
 	}
 	
 	//ATTACH 테이블에 다중 insert
 	public int insertAttach(List<AttachVO> attachVOList) {
-		log.info("DAO attachVOList : "+attachVOList);
 		return this.sqlSessionTemplate.insert("product.insertAttach",attachVOList);
 	}
 }

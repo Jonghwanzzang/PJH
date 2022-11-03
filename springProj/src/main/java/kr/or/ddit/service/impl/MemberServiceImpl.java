@@ -50,8 +50,6 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 		return this.memberdao.insertCard(cardVOList2);
-		
-		
-
 	}
+
 }

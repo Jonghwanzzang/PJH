@@ -6,67 +6,14 @@
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <title>상품 등록</title>
- <style type="text/css">
- 	.imgs_wrap{
- 		width:300px;
- 		margin-top: 50px;
- 	}
- 	.imgs_wrap img{
- 	max-width: 100%}
- 
- </style>
-<script type="text/javascript" src="/resources/js/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/validation.js"></script>
 </head>
 <body>
-<script type="text/javascript">
-$(function(){
-	// 이미지 미리보기 시작
-	let sel_file = [];
-	
-	$("#productImage").on("change",handleImgFileSelect);
-	function handleImgFileSelect(e){
-		console.log(e);
-	//파라미터 e : onchange 이벤트 객체
-	let files = e.target.files;
-	
-	//이미지가 여러개 있을 수 있으므로 이미지를 분리하여 배열로 만듦
-	let fileArr = Array.prototype.slice.call(files);
-	//파일 타입의 배열 반복
-	//파일 타입의 배열 반복 f : 파일 배열 안에 들어있는 각각의 이미지 파일 객체
-	fileArr.forEach(function(f){
-		//이미지 파일이 아닌 경우 이미지 미리보기 실패로 처리
-		if(!f.type.match("image.*")){
-			alert("이미지 확장자만 가능합니다.")
-			return // 함수 종료
-		}
-		//이미지 객체를(f) 전역 배열타입 변수(sel)file)에 넣자
-		sel_file.push(f);
-		// 이미지 객체를 읽을 자바스크립트의 reader 객체 생성
-		let reader = new FileReader();
-		// e : reader가 이미지 객체를 읽는 이벤트
-		reader.onload = function(e){
-			//e.target : 이미지 객체
-			// e.targer.result : reader가ㅏ 이미지를 다 읽은 결과
-			let img_html = "<img src=\"" + e.target.result + "\" />"
-			// append 객체 : 누적, html : 새로고침, innerHTML : 3/5
-			$(".imgs_wrap").append(img_html);
-		}
-		// f: 이미지 파일 객체를 읽은 후 다음 이미지 파일(f)를 위해 초기화
-		reader.readAsDataURL(f);
-	});//end foreach
-	
-	
-	}
-})
-
-</script>
-
 <!-- 머리글에 해당하는 menu.jsp파일의 내용을 포함하도록 include 액션태그 작성 -->
 	<jsp:include page="menu.jsp"/>
 	<div class="jumbotron">
 		<div class="container">
-			<h1 class="display-3">상품등록</h1>
+			<h1 class="display-3"><spring:message code="title"/></h1>
 		</div>
 	</div>
 <!-- ========================= 상품 등록 시작 =================================== -->
@@ -74,7 +21,7 @@ $(function(){
 		<div class="text-right">
 			<a href="?language=ko">Korea</a> | <a href="?language=en">English</a>
 		</div> 
-		<form name="newProduct" action="/addProduct" class="form-horizontal" method="post" enctype="multipart/form-data">
+		<form name="newProduct" action="/addProduct" class="form-horizontal" method="post">
 			<div class="form-group row">
 				<label class="col-sm-2"><spring:message code="productId"/></label>
 				<div class="col-sm-3">
@@ -112,9 +59,9 @@ $(function(){
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-sm-2"><spring:message code="unitsInStock"/></label>
+				<label class="col-sm-2"><spring:message code="unitInStock"/></label>
 				<div class="col-sm-3">
-					<input type="text" id="unitsInStock" name="unitsInStock" class="form-control">
+					<input type="text" id="unitInStock" name="unitInStock" class="form-control">
 				</div>
 			</div>
 			<div class="form-group row">
@@ -129,11 +76,8 @@ $(function(){
 			<div class="form-group row">
 				<label class="col-sm-2"><spring:message code="productImage"/></label>
 				<div class="col-sm-5">
-					<input type="file" id="productImage" name="productImage" class="form-control" multiple>
+					<input type="file" id="productImage" name="productImage" class="form-control">
 				</div>
-			</div>
-			<div class="form-group row">
-				<div class="imgs_wrap"></div>
 			</div>
 			<div class="form-group row">
 				<div class="col-sm-offset-2 col-sm-10">

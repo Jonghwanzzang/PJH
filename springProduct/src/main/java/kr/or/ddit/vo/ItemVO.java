@@ -4,32 +4,25 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import lombok.Data;
-
 public class ItemVO {
-	
-	// 멤버 변수
+	//멤버변수
 	private int itemId;
 	private String itemName;
 	private int price;
 	private String description;
 	private String pictureUrl;
 	private String pictureUrl2;
-	private MultipartFile picture; // MultopartFile 이 중요
-	// 변수명도 input tag name 과 일치 해야함
-	// input 태그에 multiple 넣으면 여러개의 이미지를 올릴 수 있는데
-	// 그럼 MultipartFele[] 배열로 만들어 줘야됨
+	
+	//<input type="file" name="picture" />
+	private MultipartFile picture;
 	
 	//1대 N의 관계
 	private List<ItemAttachVO> itemAttachVOList; 
 
-	//기본 생성자
-	public ItemVO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	//getter , setter
+	//기본생성자
+	public ItemVO() {}
+
+	//getter/setter메소드
 	public int getItemId() {
 		return itemId;
 	}
@@ -78,14 +71,6 @@ public class ItemVO {
 		this.pictureUrl2 = pictureUrl2;
 	}
 
-	public MultipartFile getPicture() {
-		return picture;
-	}
-
-	public void setPicture(MultipartFile picture) {
-		this.picture = picture;
-	}
-
 	public List<ItemAttachVO> getItemAttachVOList() {
 		return itemAttachVOList;
 	}
@@ -94,10 +79,21 @@ public class ItemVO {
 		this.itemAttachVOList = itemAttachVOList;
 	}
 
+	public MultipartFile getPicture() {
+		return picture;
+	}
+
+	public void setPicture(MultipartFile picture) {
+		this.picture = picture;
+	}
+
 	@Override
 	public String toString() {
 		return "ItemVO [itemId=" + itemId + ", itemName=" + itemName + ", price=" + price + ", description="
 				+ description + ", pictureUrl=" + pictureUrl + ", pictureUrl2=" + pictureUrl2 + ", picture=" + picture
 				+ ", itemAttachVOList=" + itemAttachVOList + "]";
 	}
+
+	
+	
 }

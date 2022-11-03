@@ -1,4 +1,3 @@
-<%@page import="kr.or.ddit.vo.CartVO"%>
 <%@page import="java.net.URLDecoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
@@ -15,7 +14,7 @@
 		String Shipping_addressName = "";
 		String Shipping_shippingDate = "";
 		String Shipping_cartId = "";
-		CartVO cartvo = new CartVO();
+	
 		Cookie[] cookies = request.getCookies();
 		//쿠키의 개수만큼 반복
 		for(int i=0;i<cookies.length;i++){
@@ -26,27 +25,21 @@
 	// 		out.print(URLDecoder.decode(thisCookie.getValue(),"UTF-8")+"<br />");
 			if(thisCookie.getName().equals("Shipping_name")){
 				Shipping_name = URLDecoder.decode(thisCookie.getValue(),"UTF-8");
-				cartvo.setName(Shipping_name);
 			}
 			if(thisCookie.getName().equals("Shipping_zipCode")){
 				Shipping_zipCode = URLDecoder.decode(thisCookie.getValue(),"UTF-8");
-				cartvo.setName(Shipping_zipCode);
 			}
 			if(thisCookie.getName().equals("Shipping_country")){
 				Shipping_country = URLDecoder.decode(thisCookie.getValue(),"UTF-8");
-				cartvo.setName(Shipping_country);
 			}
 			if(thisCookie.getName().equals("Shipping_addressName")){
 				Shipping_addressName = URLDecoder.decode(thisCookie.getValue(),"UTF-8");
-				cartvo.setName(Shipping_addressName);
 			}
 			if(thisCookie.getName().equals("Shipping_shippingDate")){
 				Shipping_shippingDate = URLDecoder.decode(thisCookie.getValue(),"UTF-8");
-				cartvo.setName(Shipping_shippingDate);
 			}
 			if(thisCookie.getName().equals("Shipping_cartId")){
 				Shipping_cartId = URLDecoder.decode(thisCookie.getValue(),"UTF-8");
-				cartvo.setCartId(Shipping_cartId);
 			}
 		}
 	%>

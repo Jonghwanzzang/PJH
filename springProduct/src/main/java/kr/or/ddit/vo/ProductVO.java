@@ -21,7 +21,7 @@ public class ProductVO implements Serializable{
 	private String description; // 상품 설명
 	private String manufacturer; // 제조사
 	private String category; // 분류
-	private int unitsInStock; // 재고수
+	private int unitInStock; // 재고수
 	private String condition; // 신상품 or 중고품 or 재생품
 	
 	// ch07에서 추가함
@@ -31,7 +31,9 @@ public class ProductVO implements Serializable{
 	// ch13에서 추가함
 	private int quantity; // 장바구니에 상품을 담은 개수
 	
-	private MultipartFile[] productImage; 
+	//input type="file" id="productImage" name="productImage" class="form-control"
+	//multiple
+	private MultipartFile[] productImage;
 	
 
 	// 기본생성자
@@ -45,18 +47,8 @@ public class ProductVO implements Serializable{
 	}
 	
 	// getter / setter 메소드
-	
-	
 	public String getProductId() {
 		return productId;
-	}
-
-	public MultipartFile[] getProductImage() {
-		return productImage;
-	}
-
-	public void setProductImage(MultipartFile[] productImage) {
-		this.productImage = productImage;
 	}
 
 	public void setProductId(String productId) {
@@ -103,12 +95,12 @@ public class ProductVO implements Serializable{
 		this.category = category;
 	}
 
-	public int getUnitsInStock() {
-		return unitsInStock;
+	public int getUnitInStock() {
+		return unitInStock;
 	}
 
-	public void setUnitsInStock(int unitInStock) {
-		this.unitsInStock = unitInStock;
+	public void setUnitInStock(int unitInStock) {
+		this.unitInStock = unitInStock;
 	}
 
 	public String getCondition() {
@@ -138,17 +130,23 @@ public class ProductVO implements Serializable{
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
-	
+
+	public MultipartFile[] getProductImage() {
+		return productImage;
+	}
+
+	public void setProductImage(MultipartFile[] productImage) {
+		this.productImage = productImage;
+	}
 
 	@Override
 	public String toString() {
 		return "ProductVO [productId=" + productId + ", pname=" + pname + ", unitPrice=" + unitPrice + ", description="
-				+ description + ", manufacturer=" + manufacturer + ", category=" + category + ", unitsInStock="
-				+ unitsInStock + ", condition=" + condition + ", filename=" + filename + ", quantity=" + quantity
+				+ description + ", manufacturer=" + manufacturer + ", category=" + category + ", unitInStock="
+				+ unitInStock + ", condition=" + condition + ", filename=" + filename + ", quantity=" + quantity
 				+ ", productImage=" + Arrays.toString(productImage) + "]";
 	}
-
-
+	
+	
 	
 }

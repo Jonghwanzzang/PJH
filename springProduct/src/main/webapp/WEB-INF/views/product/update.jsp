@@ -19,7 +19,7 @@
 <!-- ========================= 상품 등록 시작 =================================== -->
 	<div class="container">
 		<div class="text-right">
-			<a href="?language=ko">Korea</a> | <a href="?language=en">English</a>
+			<a href="?productId=${data.productId}&language=ko">Korea</a> | <a href="?productId=${data.productId}&language=en">English</a>
 		</div> 
 		<form name="newProduct" action="/update" class="form-horizontal" method="post">
 			<div class="form-group row">
@@ -61,18 +61,21 @@
 			<div class="form-group row">
 				<label class="col-sm-2"><spring:message code="unitInStock"/></label>
 				<div class="col-sm-3">
-					<input type="text" id="unitInStock" name="unitInStock" class="form-control" value="${data.unitsInStock}">
+					<input type="text" id="unitInStock" name="unitInStock" class="form-control" value="${data.unitInStock}">
 				</div>
 			</div>
 			<div class="form-group row">
 				<label class="col-sm-2"><spring:message code="condition"/></label>
 				<div class="col-sm-5">
-					<input type="radio" id="condition1" name="condition" value="New"/><spring:message code="condition_New"/>
-						<c:if test="${data.condition=='NEW'}">checked</c:if>
-					<input type="radio" id="condition2" name="condition" value="Old"/><spring:message code="condition_Old"/>
+					<input type="radio" id="condition1" name="condition" value="New" 
+						<c:if test="${data.condition=='New'}">checked</c:if>
+					 /><label for="condition1"><spring:message code="condition_New"/></label>
+					<input type="radio" id="condition2" name="condition" value="Old"
 						<c:if test="${data.condition=='Old'}">checked</c:if>
-					<input type="radio" id="condition3" name="condition" value="Refurbished"/><spring:message code="condition_Refurbished"/>					
+					/><label for="condition2"><spring:message code="condition_Old"/></label>
+					<input type="radio" id="condition3" name="condition" value="Refurbished"
 						<c:if test="${data.condition=='Refurbished'}">checked</c:if>
+					/><label for="condition3"><spring:message code="condition_Refurbished"/></label>					
 				</div>
 			</div>
 			<!-- ch07에서 추가됨 -->
