@@ -114,7 +114,7 @@ $(function(){
 												<tr class="odd">
 											</c:if>
 												<!-- 가져올 데이터 테이블 -->
-												<td>${list.memId}</td>
+												<td><a href="/board/detail?memId=${list.memId}">${list.memId}</a></td>
 												<td>${list.memName}</td>
 												<td>${list.memHp}</td>
 												<td>${list.memJob}</td>

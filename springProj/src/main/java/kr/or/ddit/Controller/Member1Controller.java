@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.or.ddit.service.Member1Service;
 import kr.or.ddit.util.ArticlePage;
 import kr.or.ddit.util.FileUploadUtil;
+import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.Member1VO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -254,6 +255,25 @@ public class Member1Controller {
 	}
 	
 	
+	//요청URI : /board/detail?memId=???
+	//URL : /board/detail
+	//요청 파라미터 : memId=???
+	@GetMapping("/board/detail")
+	public String detail(String memId , Model model) {
+		log.info("memId : " + memId);
+		
+		Member1VO member1VO = this.member1Service.detail(memId);
+		log.info("member1VO : " + member1VO.toString());
+
+		//회원 Detail 증명 사진
+		List<AttachVO> attchVOList = member1VO.getAttachVOList();
+		model.addAttribute("attchVOList", attchVOList);
+		model.addAttribute("member1VO",member1VO);
+		
+		//forwarding
+		return "board/detail";
+		
+	}
 	
 	
 	

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
- <mapper namespace="member1">
+ <mapper namespace="kr.or.ddit.mapper.MemMapper">
 	 <sql id="where">
 	 	<!-- 통합검색 -->
 	 		
@@ -12,6 +12,21 @@
 		OR MEM_JOB LIKE '%'||#{keyword}||'%'
 		OR MEM_LIKE LIKE '%'||#{keyword}||'%')
 	 </sql>
+	 
+	  <resultMap type="memberVO1" id="memAttachMap">
+	 	  <id property="memId" column="MEM_ID"/> 
+	 	  <result property="memName" column="MEM_NAME"/>
+	 	  <result property="memHp" column="MEM_HP"/>
+	 	  <result property="memJob" column="MEM_JOB"/>
+	 	  <result property="memLike" column="MEM_LIKE"/>
+	      <collection property="attachVOList" resultMap="attachMap"></collection>
+	  </resultMap>
+      
+      <resultMap type="attachVO" id="attachMap">
+       	 <id property="seq" column="SEQ"/>
+     	 <id property="tid" column="TID"/>
+     	 <result property="attachName" column="ATTACH_NAME" />
+      </resultMap>
  
  	<select id="selectall" parameterType="hashMap" resultType="memberVO1">
  		WITH T AS(
@@ -47,4 +62,13 @@
  		FROM	MEMBER_BAK
  		WHERE	MEM_ID= #{memId} 
  	</select>
+ 	
+ 	<!-- 회원 상세보기 -->
+ 	<select id="detail" parameterType="string" resultMap="memAttachMap">
+ 		SELECT M.MEM_ID, M.MEM_NAME, M.MEM_HP, M.MEM_JOB, M.MEM_LIKE,A.SEQ,A.TID,A.ATTACH_NAME
+		FROM MEMBER_BAK M LEFT OUTER JOIN  ATTACH A ON(M.MEM_ID = A.TID)
+		WHERE M.MEM_ID = #{memId}
+ 	</select>
+ 	
+ 	
  </mapper>

@@ -15,4 +15,5 @@ public interface Member1Service {
 	
 	public int insertIdCheck(String memId);
 	
+	public Member1VO detail(String memId);
 }
