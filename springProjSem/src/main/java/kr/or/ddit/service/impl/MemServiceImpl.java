@@ -87,11 +87,34 @@ public class MemServiceImpl implements MemService {
 		return result;
 	}
 	
-	//샤로운 mem 테이블 list
+		//새로운 mem 테이블 list
 		@Override
 		public List<MemVO> memList2(){
 			return this.memMapper.memList2();
 		};
+		
+		//회원 상세
+		@Override
+		public MemVO memDetail(String userNo) {
+			return this.memMapper.memDetail(userNo);
+		}
+		
+		//비밀번호 체크
+		@Override
+		public int detailPwCheck(MemVO memVO) {
+			return this.memMapper.detailPwCheck(memVO);
+		}
+		
+		//회원정보 변경
+		@Override
+		public int memUpdate(MemVO memVO){
+			return this.memMapper.memUpdate(memVO);
+		}
+		
+		@Override
+		public int memDelete(MemVO memVO) {
+			return this.memMapper.memDelete(memVO);
+		}
 }
 
 

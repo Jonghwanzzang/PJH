@@ -7,7 +7,7 @@
       <th scope="col">회원번호</th>
       <th scope="col">회원아이디</th>
       <th scope="col">회원명</th>
-      <th scope="col">"침</th>
+      <th scope="col">"똥침"</th>
     </tr>
   </thead>
   <tbody>
@@ -17,7 +17,7 @@
   	<c:forEach var="memVO" items="${memVOList}" varStatus="stat" >
 	   <tr>
 	     <th scope="row">${stat.count}</th>
-	     <td>${memVO.userNo}</td>
+	     <td><a href="/previews/detail?userNo=${memVO.userNo}" >${memVO.userNo}</a></td>
 	     <td>${memVO.userId }</td>
 	     <td>${memVO.userName}</td>
 	   	 <td>

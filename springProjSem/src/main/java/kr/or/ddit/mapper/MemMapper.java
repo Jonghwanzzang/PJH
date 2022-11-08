@@ -38,6 +38,17 @@ public interface MemMapper {
 	//샤로운 mem 테이블 list
 	public List<MemVO> memList2();
 		
+	//회원상세
+	public MemVO memDetail(String userNo); 
+
+	//비밀번호 체크
+	public int detailPwCheck(MemVO memVO);
+
+	//회원정보 수정
+	public int memUpdate(MemVO memVO);
+	
+	//회원 삭제
+	public int memDelete(MemVO memVO);
 	
 	
 }
