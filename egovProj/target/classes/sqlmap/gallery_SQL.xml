@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace : xml파일은 여러개일 수 있음. 
+이를 구별하기 위한 식별 용도로 사용 -->
+<mapper namespace="kr.or.ddit.mapper.GalleryMapper">
+	
+	<resultMap type="bookVO" id="bookMap">
+			 <id  column="BOOK_ID" property="bookId"  />
+			 <result  column="TITLE" property="title"  />
+			 <result  column="CATEGORY" property="category"  /> 
+			 <result  column="PRICE" property="price"  />
+			 <result  column="INSERT_DATE" property="insertDate"  />
+			 <result  column="CONTENT" property="content"  />
+		<collection property="attachVOList" resultMap="attachMap" ></collection>
+	</resultMap>
+	
+	<resultMap type="kr.or.ddit.vo.AttachVO" id="attachMap">
+			 <result  column="USER_NO" property="userNo"  />
+			 <result  column="SEQ" property="seq"  />
+			 <result  column="FILENAME" property="fileName"  />
+			 <result  column="FILESIZE" property="fileSize"  />
+			 <result  column="REGDATE" property="regDate"  />
+	</resultMap>
+	
+	<select id="filelist" parameterType="bookVO" resultMap="bookMap" >
+		SELECT  B.BOOK_ID
+				, B.TITLE
+				, B.CATEGORY
+				, B.PRICE
+				, B.INSERT_DATE
+				, B.CONTENT
+				, A.USER_NO
+				, A.SEQ
+				, A.FILENAME
+				, A.FILESIZE
+				, A.REGDATE
+		FROM   BOOK B INNER JOIN ATTACH A ON(B.BOOK_ID = A.USER_NO)
+		WHERE BOOK_ID = #{bookId}
+	</select>
+	
+	<!-- 도서 목록 가져와서 SELECT에 추가하기 -->
+	<select id="bookList" resultType="bookVO" >
+		SELECT BOOK_ID, TITLE, CATEGORY, PRICE, INSERT_DATE, CONTENT
+		FROM   BOOK
+		ORDER BY TITLE ASC
+	</select>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+

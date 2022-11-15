@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="card">
 	<div class="card-header">
@@ -50,9 +51,9 @@
 							<c:if test="${list.bookId%2!=0}"><tr class="odd"></c:if>
 							<c:if test="${list.bookId%2==0}"><tr class="even"></c:if>
 								<td class="dtr-control sorting_1" tabindex="0">${list.bookId}</td>
-								<td>${list.title}</td>
-								<td>${list.price }</td>
-								<td>${list.insertDate}</td>
+								<td><a href="/book/detail?bookId=${list.bookId}" >${list.title}</a></td>
+								<td> <fmt:formatNumber value="${list.price}" pattern="#,###"/>원 </td>
+								<td> <fmt:formatDate value="${list.insertDate}" pattern="yyyy-MM-dd"/></td>
 							</tr>
 							</c:forEach>
 						<tfoot>
@@ -67,7 +68,7 @@
 					</table>
 				</div>
 			</div>
-			<!-- <div class="row">
+			<div class="row">
 				<div class="col-sm-12 col-md-5">
 					<div class="dataTables_info" id="example1_info" role="status"
 						aria-live="polite">Showing 1 to 10 of 57 entries</div>
@@ -101,9 +102,11 @@
 								href="#" aria-controls="example1" data-dt-idx="7" tabindex="0"
 								class="page-link">Next</a></li>
 						</ul>
+							<a href="/book/intpage" style="float:right; width:50px;" 
+										class="btn btn-block btn-dark btn-sm">등록</a>
 					</div>
 				</div>
-			</div> -->
+			</div>
 		</div>
 	</div>
 </div>

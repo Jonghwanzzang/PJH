@@ -1,16 +1,23 @@
 package kr.or.ddit.vo;
 
 import java.util.Date;
+import java.util.List;
 
-import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
 
 public class BookVO {
 	private int bookId;
 	private String title;
 	private String category;
+	@NumberFormat(pattern = "###,###")
 	private int price;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date insertDate;
+	private String content; // 책 내용
+	private List<AttachVO> attachVOList;
+	
 	public int getBookId() {
 		return bookId;
 	}
@@ -41,9 +48,23 @@ public class BookVO {
 	public void setInsertDate(Date insertDate) {
 		this.insertDate = insertDate;
 	}
+	
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
+	public List<AttachVO> getAttachVOList() {
+		return attachVOList;
+	}
+	public void setAttachVOList(List<AttachVO> attachVOList) {
+		this.attachVOList = attachVOList;
+	}
 	@Override
 	public String toString() {
 		return "BookVO [bookId=" + bookId + ", title=" + title + ", category=" + category + ", price=" + price
-				+ ", insertDate=" + insertDate + "]";
+				+ ", insertDate=" + insertDate + ", content=" + content + ", attachVOList=" + attachVOList + "]";
 	}
 }

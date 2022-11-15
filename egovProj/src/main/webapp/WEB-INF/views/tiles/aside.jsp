@@ -52,18 +52,13 @@
                 <p>Dashboard v1</p>
               </a>
             </li>
-            <li class="nav-item">
+        <!--     <li class="nav-item">
               <a href="./index2.html" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Dashboard v2</p>
               </a>
-            </li>
-            <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Dashboard v3</p>
-              </a>
-            </li>
+            </li> -->
+            
           </ul>
           <!-- 도서관리 메뉴 시작 -->
           <li class="nav-item">
@@ -82,7 +77,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="/book/regist" class="nav-link">
+              <a href="/book/insert" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>도서등록</p>
               </a>
@@ -101,8 +96,32 @@
             </li>
           </ul>
         </li>
+          <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-chart-pie"></i>
+            <p>
+              이미지갤러리
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="/gallery/list" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>목록보기</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/gallery/regist" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>이미지등록</p>
+              </a>
+            </li>
+          </ul>
+        </li>
           
           <!-- 도서관리 메뉴 끝 -->
+          <!-- 이미지 갤러리 메뉴 시작 -->
         </li>
         <li class="nav-item">
           <a href="pages/widgets.html" class="nav-link">
@@ -173,6 +192,7 @@
             </li>
           </ul>
         </li>
+        <!-- 이미지 갤러리 메뉴 끝 -->
         
         <li class="nav-item">
           <a href="#" class="nav-link">
