@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,12 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ddit.service.ProductService;
@@ -33,6 +37,16 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 	
+	//1) 로그인한 사용자만 접근 가능 --> @PreAuthorize("isAuthenticated()")
+	//	@PreAuthorize("isAuthenticated()")
+
+	//2) 회원권한을 가진 사용자만 접근 가능
+	//	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	
+	//3) 회원권한 또는 관리자권한을 가진 사용자만 접근 가능
+	//	@PreAuthorize("hasAnyRole('ROLE_MEMBER',ROLE_ADMIN')")
+	
+	@PreAuthorize("hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')")
 	@RequestMapping(value = "/products", method = RequestMethod.GET)
 	public ModelAndView products(ModelAndView mav,
 			@RequestParam(value="keyword", required=false) String keyword) {
@@ -52,6 +66,7 @@ public class ProductController {
 	
 	//URI : /addProduct
 	//파라미터 : none
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/addProduct", method = RequestMethod.GET)
 	public ModelAndView addProduct() {
 		
@@ -432,6 +447,22 @@ public class ProductController {
 	public String checkOutCancelled() {
 		//forwarding
 		return "product/checkOutCancelled";
+	}
+	
+	//PRODUCT테이블의 기본키 자동 생성
+	//JSON 데이터로 return : {"productId":"P1236"}
+	@ResponseBody
+	@PostMapping("/getProductId")
+	public Map<String,String> getProductId(){
+		Map<String,String> map = new HashMap<String, String>();
+		
+		String productId = this.productService.getProductId();
+		
+		log.info("productId : " + productId);
+		
+		map.put("productId", productId);
+		
+		return map;
 	}
 }
 

@@ -14,6 +14,7 @@
 	String Shipping_cartId = "";
 
 	Cookie[] cookies = request.getCookies();
+	
 	//쿠키의 개수만큼 반복
 	for(int i=0;i<cookies.length;i++){
 		Cookie thisCookie = cookies[i];
@@ -66,13 +67,15 @@
 		<!-- 고객 정보 시작 : cookie사용-->
 		<div class="row justify-content-between">
 			<strong>배송 주소</strong><br />
-			성명 : <%=Shipping_name%><br />
-			우편번호 : <%=Shipping_zipCode%><br />
-			주소 : <%=Shipping_addressName%>&nbsp;<%=Shipping_country%>
+			성명 : ${cartVO.name}<br />
+			우편번호 : ${cartVO.zipCode}<br />
+			주소 : ${cartVO.addressName}&nbsp;
+				 ${cartVO.addressDetail}&nbsp;
+				 ${cartVO.country}
 		</div>
 		<div class="col-4" align="right">
 			<p>
-				<em>배송일 : <%=Shipping_shippingDate%></em>
+				<em>배송일 : ${cartVO.shippingDate}</em>
 			</p>
 		</div>
 		<!-- 고객 정보 끝 -->

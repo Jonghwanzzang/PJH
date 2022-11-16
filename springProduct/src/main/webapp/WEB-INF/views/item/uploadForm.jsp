@@ -3,13 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>upload Form</title>
+<title>파일 업로드</title>
 </head>
 <body>
-	<form action="/item/uploadFormAction" method="post" enctype="multipart/form-data">
-		<input type="file" name="uploadFile" multiple/>
-		<button type="submit">submit</button>
-	</form>
-
+<form action="/item/uploadFormAction" method="post"
+	enctype="multipart/form-data">
+	<input type="file" name="uploadFile" multiple />
+	<button type="submit">submit</button>
+</form>
 </body>
 </html>
