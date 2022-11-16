@@ -2,6 +2,7 @@ package kr.or.ddit.mapper;
 
 import java.util.List;
 
+import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.BookVO;
 
 public interface GalleryMapper {
@@ -11,4 +12,8 @@ public interface GalleryMapper {
 	
 	//도서 목록 가져와서 select에 추가하기
 	public List<BookVO> bookList();
+	
+	public int fileupdate(AttachVO vo);
+	
+	public int deletePost(AttachVO vo);
 }

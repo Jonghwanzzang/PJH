@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.or.ddit.mapper.BookMapper;
 import kr.or.ddit.mapper.GalleryMapper;
 import kr.or.ddit.service.BookService;
+import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.BookVO;
 
 @Service
@@ -53,5 +54,18 @@ public class BookServiceImpl implements BookService {
 	public List<BookVO> bookList() {
 		return this.galleryMapper.bookList();
 	}
+
+	@Override
+	public int fileupdate(AttachVO vo) {
+		return this.galleryMapper.fileupdate(vo);
+	}
+
+	@Override
+	public int deletePost(AttachVO vo) {
+		return this.galleryMapper.deletePost(vo);
+	}
+	
+	
+	
 
 }

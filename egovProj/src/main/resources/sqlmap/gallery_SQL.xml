@@ -46,6 +46,18 @@
 		ORDER BY TITLE ASC
 	</select>
 	
+	<update id="fileupdate" parameterType="kr.or.ddit.vo.AttachVO">
+		UPDATE ATTACH
+		SET    FILENAME = #{fileName}
+		WHERE  USER_NO = #{userNo} AND SEQ = #{seq}
+	</update>
+	
+	<delete id="deletePost" parameterType="kr.or.ddit.vo.AttachVO">
+		DELETE FROM ATTACH
+		WHERE  USER_NO = #{userNo}
+		AND    SEQ = #{seq}
+	</delete>
+	
 	
 </mapper>
 
