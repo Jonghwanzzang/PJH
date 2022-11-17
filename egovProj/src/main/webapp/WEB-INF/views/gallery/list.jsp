@@ -42,6 +42,9 @@
 			</c:forEach>
 			</div>
 		</div>
+		<div>
+			<a href="./imginsert" style="float:right; margin-right:9px; margin-bottom:9px;" >이미지 등록</a>
+		</div>
 	</div>
 </div>
 <div class="modal fade" id="modal-default" style="display: none;"
@@ -50,8 +53,8 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title"></h4>
-				<input type="text" id="txtUserNo" value=""/>
-				<input type="text" id="txtSeq" value=""/>
+				<input type="hidden" id="txtUserNo" value=""/>
+				<input type="hidden" id="txtSeq" value=""/>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">×</span>
@@ -303,7 +306,7 @@ $(function(){
 			url : "/gallery/deletePost",
 			contentType : 'application/json;charset=utf-8',
 			data :JSON.stringify(data) ,
-			dataType : "json",
+			dataType : "text",
 			type : "post",
 			success : function(result){
 				if(result ==1 ){

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -166,6 +167,34 @@ public class GalleryController {
 		int result = this.bookserviceImpl.deletePost(attachVO);
 		log.info("result : " + result);
 		return result;
+	}
+	
+	
+	/**
+	 * 이미지 다중 등록
+	 * 요청 URI : /gallery/regist
+	 * 방식 : get
+	 */
+	
+	
+	@GetMapping("/regist")
+	public String regist(Model model) {
+		model.addAttribute("bodyTitle", "이미지 다중 등록");
+		return "gallery/regist";
+	}
+	
+	@ResponseBody
+	@GetMapping("/searchBook")
+	public List<BookVO> searchBook(@ModelAttribute BookVO vo) {
+		log.info("controller vo :" + vo.toString());
+		String title = vo.getTitle();
+		
+		vo.setTitle(title);
+		
+		List<BookVO> list = this.bookserviceImpl.searchBook(vo);
+		log.info("list : " + list);
+		
+		return list;
 	}
 	
 

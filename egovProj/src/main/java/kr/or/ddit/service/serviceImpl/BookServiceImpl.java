@@ -64,6 +64,11 @@ public class BookServiceImpl implements BookService {
 	public int deletePost(AttachVO vo) {
 		return this.galleryMapper.deletePost(vo);
 	}
+
+	@Override
+	public List<BookVO> searchBook(BookVO vo) {
+		return this.galleryMapper.searchBook(vo);
+	}
 	
 	
 	

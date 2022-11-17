@@ -24,4 +24,6 @@ public interface BookService  {
 	public int fileupdate(AttachVO vo);
 	
 	public int deletePost(AttachVO vo);
+	
+	public List<BookVO> searchBook(BookVO vo);
 }
