@@ -220,6 +220,7 @@
 						content +="	</div>";
 						content +="</div>";
 						// 뺵틱 `` 사용하셈
+						// jsp 에선 el 과  $(달러)를 같이사용하기 떄문에 식별성을 위해 앞에 역슬러시 형태로 사용 -->\${}
 						$("#listgroup").append(content);
 					});
 				}
