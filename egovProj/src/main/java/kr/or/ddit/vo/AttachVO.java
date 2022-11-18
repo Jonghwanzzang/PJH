@@ -1,6 +1,9 @@
 package kr.or.ddit.vo;
 
+import java.util.Arrays;
 import java.util.Date;
+
+import org.springframework.web.multipart.MultipartFile;
 
 public class AttachVO {
 	
@@ -9,6 +12,8 @@ public class AttachVO {
 	private String fileName;
 	private int fileSize; 
 	private Date regDate;
+	
+	
 	public String getUserNo() {
 		return userNo;
 	}
@@ -44,4 +49,7 @@ public class AttachVO {
 		return "AttachVO [userNo=" + userNo + ", seq=" + seq + ", fileName=" + fileName + ", fileSize=" + fileSize
 				+ ", regDate=" + regDate + "]";
 	}
+	
+	
+	
 }

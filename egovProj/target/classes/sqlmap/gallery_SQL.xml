@@ -71,6 +71,21 @@
 		OR CONTENT LIKE '%'||#{title}  ||'%')
 	</select>
 	
+	<!-- 
+		다중 insert 시 update 태그 사용
+		들어오는 타입 : List<AttachVO> attachVOList
+		나가는 타입 : insert , update , delete 같은 경우 resultTpye은 생략
+		
+	 -->
+	 <update id="uploadAjaxAction" parameterType="java.util.List">
+	<foreach collection="list" item="AttachVO" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
+		INTO ATTACH(USER_NO,SEQ,FILENAME,FILESIZE,REGDATE)VALUES(#{AttachVO.userNo},#{AttachVO.seq},#{AttachVO.fileName},#{AttachVO.fileSize},SYSDATE)
+	</foreach>
+	</update> 	
+	 <select id="getSeq" parameterType="string" resultType="int">
+		SELECT NVL(MAX(SEQ),0)+1 FROM ATTACH WHERE USER_NO = #{bookId} 
+	</select> 
+	
 	
 </mapper>
 

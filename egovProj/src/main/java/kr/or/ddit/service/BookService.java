@@ -26,4 +26,8 @@ public interface BookService  {
 	public int deletePost(AttachVO vo);
 	
 	public List<BookVO> searchBook(BookVO vo);
+	
+	public int getSeq(String bookId);
+	
+	public int uploadAjaxAction(List<AttachVO> attachVOList);
 }

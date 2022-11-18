@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>  
-
+<html class>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -23,7 +23,9 @@
   <link rel="stylesheet" href="/resources/adminlte/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="/resources/adminlte/plugins/summernote/summernote-bs4.min.css">
-<body class="hold-transition sidebar-mini layout-fixed">
+<script src="/resources/adminlte/plugins/sweetalert2/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="/resources/adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+<body class="sidebar-mini sidebar-closed sidebar-collapse">
 <div class="wrapper">
 
 	<link rel="stylesheet" href="/resources/adminlite/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -152,4 +154,4 @@
     });
   });
 </script>
-
+</html>

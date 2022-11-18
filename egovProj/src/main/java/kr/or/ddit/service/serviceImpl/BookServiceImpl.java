@@ -69,6 +69,17 @@ public class BookServiceImpl implements BookService {
 	public List<BookVO> searchBook(BookVO vo) {
 		return this.galleryMapper.searchBook(vo);
 	}
+
+	@Override
+	public int uploadAjaxAction(List<AttachVO> attachVOList) {
+		return this.galleryMapper.uploadAjaxAction(attachVOList);
+	}
+
+	@Override
+	public int getSeq(String bookId) {
+		// TODO Auto-generated method stub
+		return this.galleryMapper.getSeq(bookId);
+	}
 	
 	
 	
