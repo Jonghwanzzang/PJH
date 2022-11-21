@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,14 +44,14 @@ public class GalleryController {
 		
 		
 		  BookVO list = this.bookserviceImpl.filelist(vo);
-		  List<AttachVO> attach = list.getAttachVOList();
+//		  List<AttachVO> attach = list.getAttachVOList();
 		  log.info("list : " + list);
 		 
 		
 		//공통 약속
 		model.addAttribute("bodyTitle", "이미지 목록");
 		model.addAttribute("list",list);
-		model.addAttribute("attach",attach);
+//		model.addAttribute("attach",attach);
 		return "gallery/list";
 	}
 	
@@ -179,7 +180,7 @@ public class GalleryController {
 	 * 방식 : get
 	 */
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/regist")
 	public String regist(Model model) {
 		model.addAttribute("bodyTitle", "이미지 다중 등록");

@@ -105,8 +105,10 @@
 	</div>
 	<div class="row">
 		<div class="col-12">
-			<a href="#" class="btn btn-secondary">Cancel</a> <input type="submit"
-				value="Create new Project" class="btn btn-success float-right">
+			<!-- <a href="#" class="btn btn-secondary">Cancel</a> <input type="submit"
+				value="Create new Project" class="btn btn-success float-right"> -->
+				<button type="button" class="btn btn-info">등록</button>
+					<a href="/galllery/list?memName=" class="btn btn-info">목록</a>
 		</div>
 	</div>
 </section>
@@ -198,7 +200,6 @@ $(function(){
 		//이미지 오브젝트 배열
 		let fileArr = Array.prototype.slice.call(files);
 		
-<<<<<<< HEAD
 		//f : 각각의 이미지 파일
 		fileArr.forEach(function(f){
 			//이미지가 아니면
@@ -220,72 +221,6 @@ $(function(){
 			}
 			//다음 이미지 파일(f)을 위해 리더를 초기화
 			reader.readAsDataURL(f);
-=======
-		$("#searchId").on("click",function(){
-			let search = $("#search").val();
-			let title = {
-							"title":search
-					 	};
-			alert(title);
-			/* <h3 id="booktitle">Lorem ipsum dolor sit amet</h3>
-			<p id="rcimg" */
-		$.ajax({
-				url : "/gallery/searchBook" ,
-				contentType: 'application/json; charset=utf-8',
-				data : title, 
-				dataType : "json" , 
-				type : "get",
-				success : function(result){
-					//console.log(JSON.stringify(result[0].attachVOList[0].userNo));
-					
-					$.each(result,function(index,item){
-						console.log(item);
-						let dt = new Date(item.insertDate);
-						let dtYY = dt.getFullYear();
-						let dtMM = dt.getMonth();
-						let dtDD = dt.getDate();
-						let dtHH = dt.getHours();
-						let dtMI = dt.getMinutes();
-						let dtresult = dtYY + "-" + dtMM + "-" + dtDD + "-" + dtHH + "-" + dtMI ; 
-						let cont = item.content;
-						
-						let volist = item.attachVOList;
-						let filename = "/noimage.jpg";
-						if(volist.length >0){
-							console.log("attachVOList : " + item.attachVOList);
-							$.each(volist,function(index,item){
-								//책 이미지가 1이상이면 이미지 경로를 변수에 대입
-								filename = item.fileName;
-							});
-						}
-						
-						console.log("filename : "  + filename)
-						
-						
-						let content = "";
-
-						
-						content +="<div class='list-group-item' onclick='senddata("+JSON.stringify(item)+")'>";
-// 						content +=" <img class='img-fluid' src='/resources/upload/"+item.attachVOList[index].filename+"'";
-						content +=" <img class='img-fluid' src='/resources/upload"+filename+"'>";
-						content +="	<div class='row' >";
-						content +="		<div class='col px-4'>";
-						content +="			<div>";
-						content +="				<div> class='float-right' id='datav'>"+dtresult+"</div>";
-						content +="				<div>제목 :<h3 id='titlev' >"+item.title+"</h3></div>";
-						content +="				<div>내용 :<p class='mb-0'>"+cont.substring(0.50)+"</p></div>";
-						content +="				<div>금액 :<p class='mb-0' id='pricev'>"+item.price+"</p></div>";
-						content +="			</div>";
-						content +="		</div>";
-						content +="	</div>";
-						content +="</div>";
-						// 뺵틱 `` 사용하셈
-						// jsp 에선 el 과  $(달러)를 같이사용하기 떄문에 식별성을 위해 앞에 역슬러시 형태로 사용 -->\${}
-						$("#listgroup").append(content);
-					});
-				}
-			});
->>>>>>> 06340e22742ab0ae2bfd28f29a9584eb38a23ec8
 		});
 	}
 	//이미지 미리보기 끝/////////////////////////////
@@ -321,6 +256,8 @@ $(function(){
  */
 		formData.append("bookId",bookId)
 		
+		//스프링 시큐리티를 위한 토큰 처리(csrf) --> 코스로 픽스
+	
 		//아작났어유 피씨다타써
 		//dataType : 응답 데이터 타입
 		// GalleryController 참고
@@ -333,6 +270,7 @@ $(function(){
 			data:formData,
 			dataType:"json",
 			type:"post",
+			
 			success:function(result){
 				console.log("result : " + JSON.stringify(result));
 				
@@ -356,6 +294,10 @@ $(function(){
 	
 	$("#btnSearch").on("click",function(){
 		let str = $(".form-control-lg").val();
+		let header = "${_csrf.headerName}";
+		let token = "${_csrf.token}";
+		
+		console.log("header : " + header  + " , token : " + token);
 		
 		let data = {"title":str};
 		console.log("data : " + JSON.stringify(str));
@@ -369,6 +311,9 @@ $(function(){
 			data:JSON.stringify(data),
 			dataType:"json",
 			type:"post",
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(header,token);
+			},
 			success:function(result){
 // 				console.log("result : " + JSON.stringify(result));
 				//전역 변수에 넣음
@@ -481,8 +426,3 @@ function fn_go(geta){
 
 
 
-<<<<<<< HEAD
-=======
-	   
-</script>
->>>>>>> 06340e22742ab0ae2bfd28f29a9584eb38a23ec8

@@ -1,0 +1,15 @@
+
+
+{
+   "cols":[
+      {"id":"","label":"Topping","pattern":"", "type":"string"}
+      , {"id":"","label":"Slices","pattern":"", "type":"number"}
+   ],
+   "rows":[
+      {"c":[{"v":"Mushromms"},{"v":35000}]}
+      , {"c":[{"v":"Onion"},{"v":88000}]}
+      , {"c":[{"v":"Olives"},{"v":16500}]}
+      , {"c":[{"v":"Zucchini"},{"v":200000}]}
+      , {"c":[{"v":"Mushromms"},{"v":30000}]}
+   ]
+}
