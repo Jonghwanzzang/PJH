@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.mvel2.ast.Instance;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -65,12 +66,14 @@ public class BookController {
 	
 	@PostMapping("/modify")
 	public String modify(@ModelAttribute BookVO vo) {
-		log.info("BookVOzzzzzzzzzz : "  + vo.toString());
-		vo.setInsertDate((Date)vo.getInsertDate());
-		int result = this.bookServiceImpl.modify(vo);
+		log.info("BookVO : "  + vo.toString());
+//		vo.setInsertDate((Date)vo.getInsertDate());
+		// 머지 인투에 의해 id가 변경될 것이므로 미리 id를 받아놓자
+		int bookId = vo.getBookId();
 		
+		int result = this.bookServiceImpl.modify(vo);
 		log.info("result : " + result);
-		return "redirect:/book/detail?bookId="+vo.getBookId();
+		return "redirect:/book/detail?bookId="+bookId;
 	}
 	
 	@GetMapping("/intpage")
@@ -78,8 +81,10 @@ public class BookController {
 		return "book/insert";
 	}
 	
+	@PreAuthorize("permitAll")
 	@PostMapping("/insert")
 	public String bookInsert(BookVO vo) {
+		log.info(" hihi  ");
 		log.info(" isnert vo : " + vo.toString());
 		int result = this.bookServiceImpl.insert(vo);
 		return "redirect:/book/list";

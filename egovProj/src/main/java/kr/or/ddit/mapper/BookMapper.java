@@ -10,7 +10,7 @@ public interface BookMapper {
 
 	public BookVO detail(String bookId);
 	
-	public int modify(BookVO vo);
+//	public int modify(BookVO vo);
 	
 	public int insert(BookVO vo);
 	

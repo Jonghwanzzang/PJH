@@ -34,7 +34,7 @@
 		WHERE  BOOK_ID = #{bookId}
 	</select>
 	
-	<update id="modify" parameterType="bookVO">
+	<!-- <update id="modify" parameterType="bookVO">
 		UPDATE BOOK
 		SET	TITLE = #{title}
 			,CATEGORY = #{category}
@@ -50,6 +50,29 @@
 		</selectKey>
 		INSERT INTO BOOK(BOOK_ID,TITLE,CATEGORY,PRICE,INSERT_DATE, CONTENT)
 		VALUES  	(#{bookId},#{title},#{category},#{price},SYSDATE,#{content})
+	</insert> -->
+	
+	<insert id="insert" parameterType="bookVO">	
+		<selectKey order="AFTER" keyProperty="bookId" resultType="int">
+			SELECT MAX(BOOK_ID) FROM BOOK     		
+		</selectKey>
+	MERGE INTO BOOK A 
+	USING DUAL ON(BOOK_ID = #{bookId})
+    WHEN MATCHED THEN
+        UPDATE SET	TITLE = #{title} 
+			       ,CATEGORY = #{category} 
+			       ,PRICE = #{price}
+			       ,INSERT_DATE = SYSDATE
+			       ,CONTENT = #{content}
+    WHEN NOT MATCHED THEN
+        INSERT (BOOK_ID,TITLE,CATEGORY,PRICE,INSERT_DATE, CONTENT)
+        VALUES ((SELECT NVL(MAX(BOOK_ID),0)+1 FROM BOOK)
+			        ,#{title}
+			        ,#{category}
+			        ,#{price}
+			        ,SYSDATE
+			        ,#{content})
+        
 	</insert>
 	
 	<delete id="delete" parameterType="int" >

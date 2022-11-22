@@ -15,6 +15,7 @@
 		//로딩이 완료되면 drawChart 함수를 호출해보자
 		google.setOnLoadCallback(drawChart);
 		google.setOnLoadCallback(drawChart2);
+		google.setOnLoadCallback(drawChart3);
 		
 		function drawChart(){
 			let jsonData = $.ajax({
@@ -66,6 +67,32 @@
 			});
 		
 		}
+		
+		function drawChart3(){
+			let jsonData2 = $.ajax({
+				url:"/chart/chart02",
+				dataType : "json",
+				async:false
+			}).responseText;
+			
+ 			console.log("jsonData2 : " + jsonData2);
+			
+			//데이터 테이블 생성
+// 			let data = new google.visualization.DataTable(jsonData);
+			let data = new google.visualization.DataTable(jsonData2);
+		
+			//차트를 출력할 div 서택
+ 			let chart = new google.visualization.LineChart(document.getElementById("chart_div3"));
+			
+			chart.draw(data,{
+				title:"상품 별 매출금액",
+ 				curveType:"function", //넣으면 뾰족뾰족 뺴면 둥글둥글 -- LineChart
+				width:600,
+				height:450
+				
+			});
+		
+		}
 	});
 </script>
 
@@ -73,5 +100,8 @@
 	
 </div>
 <div id="chart_div2">
+	
+</div>
+<div id="chart_div3">
 	
 </div>

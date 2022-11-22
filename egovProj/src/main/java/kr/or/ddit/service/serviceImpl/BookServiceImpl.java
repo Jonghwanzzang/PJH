@@ -10,7 +10,9 @@ import kr.or.ddit.mapper.GalleryMapper;
 import kr.or.ddit.service.BookService;
 import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.BookVO;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class BookServiceImpl implements BookService {
 	
@@ -32,11 +34,15 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public int modify(BookVO vo) {
-		return this.bookMapper.modify(vo);
+		log.info("befor VO : " + vo.toString());
+			int result = this.bookMapper.insert(vo);
+			log.info("after VO : " + vo.toString());
+				return result;
 	}
 
 	@Override
 	public int insert(BookVO vo) {
+		log.info("북서비스임플 : "+ vo.toString());
 		return this.bookMapper.insert(vo);
 	}
 

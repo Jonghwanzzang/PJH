@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <div class="col-12">
 	<div class="card card-primary">
 	<div class="card-header">
@@ -12,7 +11,7 @@
 	<!-- 도서 선택 끝~ㅎㅎ -->
 		<div class="card-body">
 			<div class="row">
-			 <c:forEach var="attach" items="${attach}" >
+			 <c:forEach var="attach" items="${list.attachVOList}" >
 				<div class="col-sm-2">
 					<!-- 모달 띄우는 방법
 					1. button으로 띄우기
@@ -27,14 +26,14 @@
 					<p data-toggle="modal" data-targer="modal-default">오픈 모달</p>
 					
 					 -->
-				
 					<a  class="btn btn-modal" 
 						data-toggle="modal" 
 						href="#modal-default" 
 						data-id="/resources/upload${attach.fileName}"
 						data-title="${list.title}"
 						data-userNO="${list.bookId}"
-						data-seq="${attach.seq}"><img  
+						data-seq="${attach.seq}"
+						data-filename="${attach.fileName}"><img  
 					    src="/resources/upload${attach.fileName}"
 						class="img-fluid mb-2" alt="white sample">
 					</a>
@@ -55,6 +54,7 @@
 				<h4 class="modal-title"></h4>
 				<input type="hidden" id="txtUserNo" value=""/>
 				<input type="hidden" id="txtSeq" value=""/>
+				<input type="text" id="txtFilename" value=""/>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">×</span>
@@ -71,6 +71,9 @@
 <!-- 				<button type="button" class="btn btn-primary">Save changes</button> -->
 			<div style="float:right;">
 			  <span id="spn1">
+			  <a class="btn btn-app" onclick="fn_download()">
+			  	<i class="fas fa-save"></i> Save
+			  </a>
 			  <!-- 일반모드 시작 -->
 				<button  type="button" class="btn btn-primary" id="edit" >수정</button>				
 				<button  type="button" class="btn btn-danger" id="delete" >삭제</button>				
@@ -98,8 +101,13 @@
 
 	</div>
 </div>
+<iframe id="ifrm" name="ifrm" style="display:none;"></iframe>
+
 <script type="text/javascript" src="/resources/js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
+
+
+
 $(function(){
 	
 	$("#edit").on("click",function(){
@@ -236,14 +244,21 @@ $(function(){
 	//data-id="........."
 	$(".btn-modal").click(function(){
 		let data = $(this).data("id");
+		let fileName = $(this).data("filename");
 		let title= $(this).data("title");
-		
-		//userId랑 seq는 Attach 테이블의 복합키(composite key)로써의 기본키(primary key, 식별키)
-		let userNo = $(this).data("userno");
-		console.log("userNo : " + userNo);
 		let seq= $(this).data("seq");
+		let userNo = $(this).data("userno");
+		//userId랑 seq는 Attach 테이블의 복합키(composite key)로써의 기본키(primary key, 식별키)
+		
+		console.log("userNo : " + userNo);
 		$("#txtUserNo").val(userNo);
 		$("#txtSeq").val(seq);
+		$("#txtFilename").val(fileName);
+		//data-filename = .....
+		let filename = $(this).data("filename");
+		
+		console.log("filename : " + filename)
+		
 		
 	$("#body-content").html("<img style='width:100%; height:100%;' src='"+data+"'/>");
 	$(".modal-title").text(title);
@@ -324,5 +339,17 @@ $(function(){
 	
 });
 
+
+</script>
+<script type="text/javascript">
+function fn_download(){
+	let dwfilename = $("#txtFilename").val();
+	console.log("dwfilename: " + dwfilename);
+	let vifrm = document.getElementById("ifrm");
+	vifrm.src= "/download?fileName="+dwfilename;
+// 	$("#ifrm").
+// 	attr("src","/download?fileName="+dwfilename);
+	
+}
 
 </script>

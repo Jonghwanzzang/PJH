@@ -170,6 +170,7 @@
 			<div class="modal-footer <!--justify-content-between-->">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
+			
 		</div>
 	</div>
 </div>
@@ -263,14 +264,19 @@ $(function(){
 		// GalleryController 참고
 		// ATTACH 테이블의 user_no 컬럼의 데이터에는 bookId가 들어가야 함
 		// ATTACH 테이블의 seq     컬럼의 데이터는 1부터 1씩 자동증가
+			let header = "${_csrf.headerName}";
+			let token = "${_csrf.token}";
 		$.ajax({
+			
 			url:"/gallery/uploadAjaxAction",
 			processData:false,
 			contentType:false,
 			data:formData,
 			dataType:"json",
 			type:"post",
-			
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(header,token);
+			},
 			success:function(result){
 				console.log("result : " + JSON.stringify(result));
 				

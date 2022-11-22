@@ -1,8 +1,10 @@
 package kr.or.ddit.mapper;
 
 import java.util.List;
+import java.util.Map;
 
-import com.sun.javafx.collections.MappingChange.Map;
+import org.json.simple.JSONObject;
+
 
 public interface ProdMapper {
 	
