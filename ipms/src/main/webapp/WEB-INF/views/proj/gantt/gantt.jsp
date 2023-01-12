@@ -15,7 +15,7 @@
 
 <div style="padding-bottom:15px;">
 <span class="fc-daygrid-event-dot" style="background-color: #8299D8; border-color: #8299D8; color: white;">상위 일감</span>
-<span class="fc-daygrid-event-dot" style="background-color: #CFE4F2; border-color: #CFE4F2; color: #135C94">하위 일감</span>
+<span class="fc-daygrid-event-dot" style="background-color: #3DB9D3; border-color: #3DB9D3; color: white;">하위 일감</span>
 </div>
 <div id= "mygantt" class="mygantt" style='width:95%; height:95%;position: absolute;'></div>
 

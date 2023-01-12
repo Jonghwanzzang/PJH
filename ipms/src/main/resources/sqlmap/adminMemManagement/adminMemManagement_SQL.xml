@@ -75,6 +75,8 @@
 		SELECT M.MEM_EMAIL
   	  		 , M.MEM_CODE
  	  		 , M.MEM_NAME
+ 	  		 , M.MEM_PHONE_NUMBER
+ 	  		 , M.MEM_SGNUP_DATE
  	 		 , P.PROJ_ID
  	 		 , P.PROJ_NAME
  	 		 , P.PROJ_STRT_DATE

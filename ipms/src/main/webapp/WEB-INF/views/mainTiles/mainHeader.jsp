@@ -32,7 +32,7 @@
                     apd += '            </div>';
                     apd += '            <div class="media-body">';
                     apd += '                <h6 class="media-heading">${obj.AlamId}</h6>';
-                    apd += `<div id="ta\${index}" onclick="fn_alrm(\${objAlamId})">` + obj.alrmCts + `</div>`;
+                    apd += `<div style="font-family: noto sans, malgun gothic, AppleGothic, dotum;" id="ta\${index}" onclick="fn_alrm(\${objAlamId})">` + obj.alrmCts + `</div>`;
                     apd += '          </div>';
                     apd += '      </div>';
                     apd += '  </a>';
@@ -135,9 +135,8 @@
                     <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                         <li class="dropdown-menu-header">
                             <h6 class="dropdown-header m-0">
-                                <span class="grey darken-2">Notifications</span>
-                                <span
-                                        class="notification-tag badge badge-danger float-right m-0"><div
+                            	<span style=" font-size:16px;  font-family: noto sans, malgun gothic, AppleGothic, dotum; text-align: center;">알림</span>
+                                <span class="notification-tag badge badge-danger float-right m-0"><div
                                         id="countAlrm"></div></span>
                             </h6>
                         </li>
@@ -150,9 +149,6 @@
                                      style="left: 0px; width: 0px;"></div>
                             </div>
                         </li>
-                        <li class="dropdown-menu-footer"><a
-                                class="dropdown-item text-muted text-center"
-                                href="javascript:void(0)">Read all notifications</a></li>
                     </ul>
                 </li>
                 <li class="dropdown dropdown-user nav-item">

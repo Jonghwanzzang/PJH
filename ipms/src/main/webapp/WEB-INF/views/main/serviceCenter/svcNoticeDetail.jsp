@@ -55,7 +55,7 @@
 
                         <!-- 글 내용 -->
                         <div class="row invoice-adress-info py-2">
-                           <div class="col-6 mt-1 from-info">
+                           <div class="col-12 mt-1 from-info">
                             ${svcNotice.siteNtCts}
                            </div>
                         </div>

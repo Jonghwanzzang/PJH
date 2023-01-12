@@ -100,7 +100,7 @@
           <figure class="effect-sadie" style="width: 100%;height: 100%;overflow: hidden;">
             <img src="/upload/file/upload/img/${proj.projImgRoute}" alt="img02" style="width: 100%;height: 100%">
             <figcaption>
-                <h2 style="text-align: center;"><span style="text-align: center;font-family: noto sans, malgun gothic, AppleGothic, dotum;">${proj.projName}</span></h2>
+                <h2 style="text-align: center;"><span style="text-align: center;font-family: noto sans, malgun gothic, AppleGothic, dotum; background-color:grey; color:white;">${proj.projName}</span></h2>
                 <p style="color: white; text-align: center;"> <fmt:formatDate value="${proj.projStrtDate}" pattern="yyyy-MM-dd"/> - <fmt:formatDate value="${proj.projEndDate}" pattern="yyyy-MM-dd"/>
             </figcaption>
           </figure>
@@ -129,7 +129,7 @@
         <figure class="effect-sadie" style="width: 100%;height: 100%;overflow: hidden;">
         	<img src="/upload/file/upload/img/${bookMark.projImgRoute}" style="width: 100%;height: 100%;">
             <figcaption>
-                <h2 style="text-align: center;"><span style="text-align: center;font-family: noto sans, malgun gothic, AppleGothic, dotum;">${bookMark.projName}</span></h2>
+                <h2 style="text-align: center;"><span style="text-align: center;font-family: noto sans, malgun gothic, AppleGothic, dotum; background-color:grey; color:white;">${bookMark.projName}</span></h2>
                 <p style="color: white; text-align: center;"><fmt:formatDate value="${bookMark.projStrtDate}" pattern="yyyy-MM-dd"/> - <fmt:formatDate value="${bookMark.projEndDate}" pattern="yyyy-MM-dd"/></p>
             </figcaption>
           </figure>

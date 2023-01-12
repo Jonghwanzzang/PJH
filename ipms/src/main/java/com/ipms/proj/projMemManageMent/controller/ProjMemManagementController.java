@@ -5,9 +5,14 @@ import com.ipms.main.login.vo.MemVO;
 import com.ipms.main.mypage.mapper.MyPageMapper;
 import com.ipms.main.newProject.vo.ProjMemVO;
 import com.ipms.main.newProject.vo.ProjVO;
+import com.ipms.proj.dashboard.service.DashboardService;
 import com.ipms.proj.projMemManageMent.service.ProjMemManageMentService;
 import com.ipms.proj.projMemManageMent.vo.InvitationVO;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Map;
+
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -24,7 +29,8 @@ public class ProjMemManagementController {
     ProjMemManageMentService projMemManageMentService;
     @Autowired
     MyPageMapper myPageMapper;
-
+    @Autowired
+	DashboardService dashBoardService;
 
     @GetMapping("/{projId}/memManagement")
     public String projmemManagement(@PathVariable(name = "projId") String projId, Authentication authentication, Model model) {
@@ -32,7 +38,12 @@ public class ProjMemManagementController {
         userDetails.getUsername();
         ProjVO vo = new ProjVO();
         vo.setProjId(projId);
+        Map<String, Object> map = new HashedMap();
+        map.put("projId", projId);
+        ProjVO projInfo = dashBoardService.selectProj(map);
         vo.setMemCode(this.myPageMapper.getMemCode(userDetails.getUsername()));
+        
+        model.addAttribute("projName",projInfo.getProjName());
         model.addAttribute("dropMemList",this.projMemManageMentService.dropSupportPersonnel(vo));
         model.addAttribute("ProjectParticipantsMem",this.projMemManageMentService.projectPersonnelInquiry(vo));
         model.addAttribute("projectInvitationList",this.projMemManageMentService.projectInvitationList(vo));

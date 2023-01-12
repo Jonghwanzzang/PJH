@@ -40,9 +40,10 @@ public class TaskController {
 		log.info("TaskCotroller --> projId : " + projId);
 		vo.setProjId(projId);
 		UserDetails userdetail = (UserDetails)authentication.getPrincipal();
-		String userEmail = userdetail.getUsername(); // 유저이메일 가져오자
+		String userEmail = userdetail.getUsername(); // 유저이메일 체크
 		String userCode = this.issueService.getMemCode(userEmail);
 		vo.setMemCode(userCode);
+		
 		String[] auth = taskservice.authCheck(vo);
 		String authCheck = "";
 		
@@ -71,7 +72,6 @@ public class TaskController {
 		JSONObject obj = new JSONObject(); 
 		obj.put("fjson", returnvo);
 		
-		
 		log.info("obj다 : " +obj.toString());
 		
 		return obj;
@@ -94,9 +94,9 @@ public class TaskController {
 			
 			vo.setTaskId(returnvo.getTaskId());
 			vo.setLowRgstSeq(returnvo.getLowRgstSeq()+1);
-			
 			vo.setProjId(projId);
 			log.info("TaskContoller -> taskInsert -> 하위일감 등록 ->저장된 VO : " + vo.toString());
+			
 			int result = this.taskservice.lowWorkInsert(vo , authentication);
 			sendresult = result+"";
 			log.info("result : " + result);
@@ -164,6 +164,7 @@ public class TaskController {
 		
 		log.info("Controller --> TaskVO : "+ vo.toString());
 		 
+		//리더가 아니면 -1 리턴
 		return "-1";
 	}
 		

@@ -50,6 +50,7 @@
                             ON A.PROJ_ID = B.PROJ_ID
                                 and A.MEM_CODE = B.MEM_CODE
                                 AND B.prtpt_aprov_code = 'Y'
+                                order by proj_creatn_date desc
     </select>
 
     <select id="getListPage" resultType="com.ipms.main.newProject.vo.ProjVO">
@@ -89,9 +90,10 @@
       rownum <= #{pageNum} * #{amount}
            AND proj_opn_whth='Y'
              and proj_id <> 'P001'
+              order by proj_creatn_date desc
       )
   where rn > (#{pageNum} -1) * #{amount}
-  order by proj_creatn_date asc
+ 
   ]]>
     </select>
 
